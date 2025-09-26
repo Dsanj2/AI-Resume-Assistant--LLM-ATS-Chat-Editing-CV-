@@ -1,4 +1,4 @@
-# AI Resume Tailoring App
+# AI CV/Resume Assistant App
 
 **Description:**  
 An AI-powered resume generator and ATS optimizer using Gemma3:1B LLM.  
@@ -12,16 +12,17 @@ An AI-powered resume generator and ATS optimizer using Gemma3:1B LLM.
 - ATS keyword extraction
 - Inline missing keyword highlights
 - Optional auto-insertion of keywords
-- Docker-ready deployment
+- Coverletter creation
 
 ## Run Locally
-install Ollama (model = gemma3:1b)
+install Ollama (model = gemma3:4b)
 ```bash
 git clone https://github.com/Dsanj2/AI-Resume-Assistant-LLM-ATS-Chat-Editing-
 python -m venv venv
 ./vevn/Scripts/activate
 pip install -r requirements.txt
 streamlit run app.py
+
 
 
 
