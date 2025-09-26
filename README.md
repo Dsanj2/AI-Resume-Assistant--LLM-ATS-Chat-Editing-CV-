@@ -19,9 +19,10 @@ install Ollama (model = gemma3:4b)
 ```bash
 git clone https://github.com/Dsanj2/AI-Resume-Assistant--LLM-ATS-Chat-Editing-CV-
 python -m venv venv
-./vevn/Scripts/activate
+./venv/Scripts/activate
 pip install -r requirements.txt
 streamlit run app.py
+
 
 
 
