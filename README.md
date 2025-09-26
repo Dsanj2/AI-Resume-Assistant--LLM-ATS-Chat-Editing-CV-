@@ -17,11 +17,12 @@ An AI-powered resume generator and ATS optimizer using Gemma3:1B LLM.
 ## Run Locally
 install Ollama (model = gemma3:4b)
 ```bash
-git clone https://github.com/Dsanj2/AI-Resume-Assistant-LLM-ATS-Chat-Editing-
+git clone https://github.com/Dsanj2/AI-Resume-Assistant--LLM-ATS-Chat-Editing-CV-
 python -m venv venv
 ./vevn/Scripts/activate
 pip install -r requirements.txt
 streamlit run app.py
+
 
 
 
