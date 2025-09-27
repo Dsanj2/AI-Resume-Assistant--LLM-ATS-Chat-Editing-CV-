@@ -33,25 +33,16 @@ def clean_llm_resume(text: str) -> str:
 # Inject gradient styles
 st.markdown("""
     <style>
-        .stApp {
-            background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
-            color: #333333;
-        }
+        .stApp {background: linear-gradient(135deg, #f0f8ff, #e6e6fa); color: #333333;}
 
         h1, h2, h3, h4, h5, h6 {
             background: linear-gradient(to right, #1e90ff, #ff69b4);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+            -webkit-text-fill-color: transparent;}
 
-        p {
-            font-size: 18px;
-            
-        }
+        p {font-size: 18px ;}
 
-        .block-container {
-            padding-top: 2rem;
-        }
+        .block-container {padding-top: 2rem;}
     </style>
 """, unsafe_allow_html=True)
 
@@ -200,6 +191,7 @@ if "editable_resume" in st.session_state and job_desc.strip():
         if st.button("⬇️ Download DOCX"):
             export_docx(st.session_state["editable_resume"], "resume.docx")
             st.success("DOCX exported successfully!")
+
 
 
 
