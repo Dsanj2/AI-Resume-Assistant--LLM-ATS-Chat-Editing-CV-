@@ -31,37 +31,66 @@ def clean_llm_resume(text: str) -> str:
 
 
 # Inject gradient styles
+
 st.markdown("""
     <style>
-        .stApp {background: linear-gradient(135deg, #f0f8ff, #e6e6fa); color: #333333;}
+        /* App background gradient */
+        .stApp {
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+            background-size: 400% 400%;
+            animation: gradientShift 2s ease infinite;
+            color: #222;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
         h1, h2, h3, h4, h5, h6 {
-            background: linear-gradient(to right, #1e90ff, #ff69b4);
+            background: linear-gradient(to right, #ff6a00, #ee0979);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;}
+            -webkit-text-fill-color: transparent;
+        }
 
-        p {font-size: 18px ;}
 
-        .block-container {padding-top: 2rem;}
+        /* Gradient button */
+        div.stButton > button {
+            background: linear-gradient(to right, #ff7f50, #ff1493);
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        div.stButton > button:hover {
+            background: linear-gradient(to right, #ff1493, #ff7f50);
+            transform: scale(1.05);
+        }
+
+        /* Gradient text block */
+        .gradient-text {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* Card-style block */
+        .gradient-card {
+            background: linear-gradient(135deg, #faf0e6, #ffe4e1);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<style>
-.stButton > button {
-    border: 2px solid #0000ff;  
-    color: white;
-    background-color:#0000ff;
-    border-radius: 6px;
-    font-weight: bold;
-}
-.stButton > button:hover {
-    background-color: white;
-    color:  #0000ff ;
-    font-weight: bold;
-}
-</style>
-""", unsafe_allow_html=True)
 
 st.set_page_config(page_title="AI Resume Assistant", layout="wide")
 st.title("📄 AI Resume Assistant (LLM + ATS + CV + Chat Editing)")
@@ -191,6 +220,7 @@ if "editable_resume" in st.session_state and job_desc.strip():
         if st.button("⬇️ Download DOCX"):
             export_docx(st.session_state["editable_resume"], "resume.docx")
             st.success("DOCX exported successfully!")
+
 
 
 
