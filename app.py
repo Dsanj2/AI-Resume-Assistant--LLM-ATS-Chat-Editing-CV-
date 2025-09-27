@@ -91,7 +91,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 st.set_page_config(page_title="AI Resume Assistant", layout="wide")
 st.title("📄 AI Resume/CV Assistant (LLM + ATS + Chat Editing)")
 
@@ -128,24 +127,6 @@ if uploaded_file:
         else:
             st.warning("Please provide a job description.")
 
-# =========================
-# Editable Resume Preview
-# =========================
-if "editable_resume" in st.session_state:
-    st.subheader("✏️ Editable Resume Preview")
-    editable_resume = st.text_area(
-        "You can directly edit your tailored resume here:",
-        st.session_state["editable_resume"],
-        height=400,
-        key="resume_preview"
-    )
-    st.session_state["editable_resume"] = editable_resume
-
-    # Update ATS Score
-    if uploaded_file and job_desc.strip():
-        score = score_resume(editable_resume, job_desc)
-        st.metric("ATS Score", f"{score}/100")
-
 
 # =========================
 # Cover Letter Generation
@@ -177,6 +158,25 @@ if "editable_resume" in st.session_state and job_desc.strip():
             if st.button("⬇️ Download Cover Letter DOCX"):
                 export_docx(st.session_state["cover_letter"], "cover_letter.docx")
                 st.success("Cover letter DOCX exported successfully!")
+
+
+# =========================
+# Editable Resume Preview
+# =========================
+if "editable_resume" in st.session_state:
+    st.subheader("✏️ Editable Resume Preview")
+    editable_resume = st.text_area(
+        "You can directly edit your tailored resume here:",
+        st.session_state["editable_resume"],
+        height=400,
+        key="resume_preview"
+    )
+    st.session_state["editable_resume"] = editable_resume
+
+    # Update ATS Score
+    if uploaded_file and job_desc.strip():
+        score = score_resume(editable_resume, job_desc)
+        st.metric("ATS Score", f"{score}/100")
 
 
     # =========================
@@ -220,9 +220,6 @@ if "editable_resume" in st.session_state and job_desc.strip():
         if st.button("⬇️ Download DOCX"):
             export_docx(st.session_state["editable_resume"], "resume.docx")
             st.success("DOCX exported successfully!")
-
-
-
 
 
 
