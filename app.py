@@ -93,7 +93,7 @@ st.markdown("""
 
 
 st.set_page_config(page_title="AI Resume Assistant", layout="wide")
-st.title("📄 AI Resume Assistant (LLM + ATS + CV + Chat Editing)")
+st.title("📄 AI Resume/CV Assistant (LLM + ATS + Chat Editing)")
 
 # =========================
 # File Upload
@@ -220,6 +220,7 @@ if "editable_resume" in st.session_state and job_desc.strip():
         if st.button("⬇️ Download DOCX"):
             export_docx(st.session_state["editable_resume"], "resume.docx")
             st.success("DOCX exported successfully!")
+
 
 
 
