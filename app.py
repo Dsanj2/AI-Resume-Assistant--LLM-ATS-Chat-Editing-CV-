@@ -28,6 +28,33 @@ def clean_llm_resume(text: str) -> str:
 # =========================
 # UI Styling
 # =========================
+
+
+# Inject gradient styles
+st.markdown("""
+    <style>
+        .stApp {
+            background: linear-gradient(135deg, #f0f8ff, #e6e6fa);
+            color: #333333;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            background: linear-gradient(to right, #1e90ff, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 18px;
+            
+        }
+
+        .block-container {
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 st.markdown("""
 <style>
 .stButton > button {
@@ -46,7 +73,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.set_page_config(page_title="AI Resume Assistant", layout="wide")
-st.title("📄 AI Resume Assistant (LLM + ATS + Chat Editing)")
+st.title("📄 AI Resume Assistant (LLM + ATS + CV + Chat Editing)")
 
 # =========================
 # File Upload
@@ -57,8 +84,8 @@ if uploaded_file:
     with st.spinner("Extracting text..."):
         resume_text = extract_text_from_file(uploaded_file)
 
-    st.subheader("Extracted Resume Text")
-    st.text_area("Resume Text", resume_text, height=250)
+    #st.subheader("Extracted Resume Text")
+    #st.text_area("Resume Text", resume_text, height=100)
 
     job_desc = st.text_area("Paste Job Description here")
 
@@ -98,6 +125,39 @@ if "editable_resume" in st.session_state:
     if uploaded_file and job_desc.strip():
         score = score_resume(editable_resume, job_desc)
         st.metric("ATS Score", f"{score}/100")
+
+
+# =========================
+# Cover Letter Generation
+# =========================
+if "editable_resume" in st.session_state and job_desc.strip():
+    st.subheader("📝 Generate Cover Letter")
+    if st.button("Generate Cover Letter"):
+        with st.spinner("Generating cover letter..."):
+            cover_letter = generate_cover_letter(
+                st.session_state["editable_resume"],
+                job_desc
+            )
+            st.session_state["cover_letter"] = cover_letter
+            st.success("✅ Cover letter generated.")
+
+    if "cover_letter" in st.session_state:
+        st.text_area(
+            "Cover Letter Preview",
+            st.session_state["cover_letter"],
+            height=300,
+            key="cover_letter_preview"
+        )
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("⬇️ Download Cover Letter PDF"):
+                export_pdf(st.session_state["cover_letter"], "cover_letter.pdf")
+                st.success("Cover letter PDF exported successfully!")
+        with col2:
+            if st.button("⬇️ Download Cover Letter DOCX"):
+                export_docx(st.session_state["cover_letter"], "cover_letter.docx")
+                st.success("Cover letter DOCX exported successfully!")
+
 
     # =========================
     # Chat Editing
@@ -142,36 +202,7 @@ if "editable_resume" in st.session_state:
             st.success("DOCX exported successfully!")
 
 
-# =========================
-# Cover Letter Generation
-# =========================
-if "editable_resume" in st.session_state and job_desc.strip():
-    st.subheader("📝 Generate Cover Letter")
-    if st.button("Generate Cover Letter"):
-        with st.spinner("Generating cover letter..."):
-            cover_letter = generate_cover_letter(
-                st.session_state["editable_resume"],
-                job_desc
-            )
-            st.session_state["cover_letter"] = cover_letter
-            st.success("✅ Cover letter generated.")
 
-    if "cover_letter" in st.session_state:
-        st.text_area(
-            "Cover Letter Preview",
-            st.session_state["cover_letter"],
-            height=300,
-            key="cover_letter_preview"
-        )
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("⬇️ Download Cover Letter PDF"):
-                export_pdf(st.session_state["cover_letter"], "cover_letter.pdf")
-                st.success("Cover letter PDF exported successfully!")
-        with col2:
-            if st.button("⬇️ Download Cover Letter DOCX"):
-                export_docx(st.session_state["cover_letter"], "cover_letter.docx")
-                st.success("Cover letter DOCX exported successfully!")
 
 
 
