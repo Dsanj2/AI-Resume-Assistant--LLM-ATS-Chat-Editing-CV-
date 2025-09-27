@@ -1,4 +1,4 @@
-# AI CV/Resume Assistant (LLM-ATS_Chat-editing-CV-creation)
+# AI CV/Resume Assistant (LLM-ATS_Chat-editing)
 
 **Description:**  
 An AI-powered resume generator and ATS optimizer using Gemma3:1B LLM.  
@@ -22,6 +22,7 @@ python -m venv venv
 ./venv/Scripts/activate
 pip install -r requirements.txt
 streamlit run app.py
+
 
 
 
